@@ -1,5 +1,5 @@
 function LocalStroge(id) {
-    const exist = localStorage.getItem("shoping_cart");
+    const exist = CheakItem();
     let shoping_cart = {}
     if(!exist){
         shoping_cart[id] = 1;
@@ -14,8 +14,20 @@ function LocalStroge(id) {
             shoping_cart[id] = 1;
         }
     }
-
-    localStorage.setItem('shoping_cart', JSON.stringify(shoping_cart));
-    
+    Add(shoping_cart)  
 }
-export {LocalStroge}
+
+const Add=(cart)=>localStorage.setItem('shoping_cart', JSON.stringify(cart));
+const CheakItem=()=>localStorage.getItem("shoping_cart");
+
+function RemoveDb(id) {
+    const exist = CheakItem();
+    if(!exist){}
+    else{
+        const shoping_cart = JSON.parse(exist);
+        delete shoping_cart[id];
+        Add(shoping_cart);
+    } 
+}
+
+export {LocalStroge, RemoveDb}
